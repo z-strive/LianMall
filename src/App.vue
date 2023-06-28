@@ -1,4 +1,5 @@
 <template>
+  <div class="box"></div>
   <RouterView></RouterView>
 </template>
 
@@ -6,9 +7,10 @@
 
 </script>
 
-<style scoped>
-  *{
-    margin: 0;
-    padding: 0;
+<style scoped lang="less">
+  .box{
+    width: 100px;
+    height: 100px;
+    background-color: @yellow;
   }
 </style>

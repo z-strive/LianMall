@@ -22,6 +22,12 @@ export default defineConfig({
           propList: ['*'],
         })
       ]
+    },
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true, // additionalData: `@injectedColor: orange;`//全局变量
+        additionalData: `@import "/src/assets/common.less";`
+       } 
+      }
     }
-  }
-})
+    })
