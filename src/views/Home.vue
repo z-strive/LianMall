@@ -61,9 +61,59 @@
                 <div v-for="item in conList" :key="item.id">
                     <h4>{{ item.title }}</h4>
                     <span>{{ item.name }}</span>
-                    <img :src="'/src/images/home/'+item.img" alt="">
+                    <img :src="'/src/images/home/' + item.img" alt="">
                 </div>
             </div>
+            <div class="item-footer">
+                <div class="products">
+                    <div class="item-header products-header">
+                        <h3 class="title">大牌购走</h3>
+                        <div class="good-quality">
+                            戴尔 >
+                        </div>
+                    </div>
+                    <span>信赖大品牌</span>
+                    <div class="con-img">
+                        <img src="../images/home/demo10.png" alt="">
+                        <img src="../images/home/demo11.png" alt="">
+                    </div>
+                </div>
+                <div class="products">
+                    <div class="item-header products-header">
+                        <h3 class="title">爱逛好店</h3>
+                        <div class="good-quality">
+                            懂你所要
+                        </div>
+                    </div>
+                    <span>来逛个够</span>
+                    <div class="con-img">
+                        <img src="../images/home/demo12.png" alt="">
+                        <img src="../images/home/demo13.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- tab -->
+        <div class="tab">
+            <van-tabs v-model:active="active" :ellipsis="false" background="none">
+                <van-tab v-for="item in conTab">
+                    <template #title>
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.name }}</p>
+                    </template>
+                    <div class="tab-con">
+                        <div v-for="item in item.list">
+                            <img :src="item.img" alt="">
+                            <p class="title">{{ item.title }}</p>
+                            <div class="price">
+                                <span>{{ item.forceValue }}倍算</span>
+                                <p>+</p>
+                            </div>
+                        </div>
+                    </div>
+                </van-tab>
+            </van-tabs>
+
         </div>
     </div>
 </template>
@@ -100,6 +150,7 @@ let navList = ref([
         img: 'nav5.png'
     }
 ])
+
 const time = ref(30 * 60 * 60 * 1000);
 let sniping = ref([
     {
@@ -122,38 +173,41 @@ let sniping = ref([
 ])
 let conList = ref([
     {
-        id:0,
-        title:'特价秒杀',
-        name:'10元抢购',
-        img:'demo6.png'
+        id: 0,
+        title: '特价秒杀',
+        name: '10元抢购',
+        img: 'demo6.png'
     },
     {
-        id:1,
-        title:'品牌秒杀',
-        name:'笔记本秒杀',
-        img:'demo7.png'
+        id: 1,
+        title: '品牌秒杀',
+        name: '笔记本秒杀',
+        img: 'demo7.png'
     },
     {
-        id:2,
-        title:'新品首发',
-        name:'小黑盒新品',
-        img:'demo8.png'
+        id: 2,
+        title: '新品首发',
+        name: '小黑盒新品',
+        img: 'demo8.png'
     },
     {
-        id:3,
-        title:'优品排行',
-        name:'榜上好物购',
-        img:'demo9.png'
+        id: 3,
+        title: '优品排行',
+        name: '榜上好物购',
+        img: 'demo9.png'
     },
 ])
+let conTab = ref([])
 getHomeData().then(res => {
     if (res.code === 200) {
         swiperData.value = res.banners
         scrollBanner.value = res.banners2
+        conTab.value = res.tabList
     }
     console.log(res)
 });
 getHomeData()
+const active = ref(0);
 // axios.get('/sugrec?prod=pc&wd=b').then(res => {console.log(res)}).catch(
 //     err => {
 //         console.log(err)
@@ -167,11 +221,17 @@ getHomeData()
 
 </script>
 
-<style scoped>
+<style scoped lang="less">
+p,
+h3,
+h4 {
+    margin: 0;
+    padding: 0;
+}
+
 .wrap {
     background-color: #eee;
     width: 100vw;
-    height: 100vh;
 }
 
 .header {
@@ -340,34 +400,119 @@ getHomeData()
 .products .con-img {
     margin: 10px 0;
 }
-.con-list{
+
+.con-list {
     display: flex;
     justify-content: space-around;
+    margin: 10px 0;
 }
-.con-list div{
+
+.con-list div {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     font-size: 12px;
 }
-.con-list div h4{
+
+.con-list div h4 {
     font-size: 14px;
     margin: 0;
 }
+
 .con-list div span {
     margin-top: 5px;
 }
+
 .con-list div:nth-child(1)>span {
     color: blue;
 }
+
 .con-list div:nth-child(2)>span {
     color: aqua;
 }
+
 .con-list div:nth-child(3)>span {
     color: orange;
 }
+
 .con-list div:nth-child(4)>span {
     color: orangered;
+}
+
+.item-footer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.van-tab__text h3 {
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+}
+
+.van-tab__text p {
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+
+}
+
+.tab .van-tabs__nav {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tab-con {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.tab-con {
+    columns: 2;
+    margin-top: 10px;
+}
+
+.tab-con>div {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    break-inside: avoid;
+}
+
+.tab-con>div img {
+    width: 100%;
+    height: 196px;
+}
+
+.tab-con>div>.title {
+    text-indent: 2em;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.tab-con>div>.price {
+    display: flex;
+    font-size: 12px;
+    justify-content: space-around;
+    margin:10px 0 ;
+    span {
+        width: 50px;
+        height: 20px;
+        border-radius: 10px;
+        background-color: red;
+        line-height: 20px;
+        text-align: center;
+    }
+    p{
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        background-color: red;
+        text-align: center;
+        line-height: 20px;
+    }
 }
 </style>
