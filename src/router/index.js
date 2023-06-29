@@ -9,13 +9,13 @@ const router = createRouter({
       component: () => import('../views/Home.vue')
     },
     {
-      path: '/Mine',
-      name: 'Mine',
-      component: () => import('../views/Mine.vue')
+      path: '/mine',
+      name: 'mine',
+      component: () => import('../views/mine.vue')
     },{
-      path: '/Type',
-      name: 'Type',
-      component: () => import('../views/Type.vue')
+      path: '/type',
+      name: 'type',
+      component: () => import('../views/type.vue')
     },{
       path: '/Cart',
       name: 'Cart',

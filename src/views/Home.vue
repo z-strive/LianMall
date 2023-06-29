@@ -95,7 +95,7 @@
         </div>
         <!-- tab -->
         <div class="tab">
-            <van-tabs v-model:active="active" :ellipsis="false" background="none">
+            <van-tabs v-model:active="active" :ellipsis="false" background="none" animated>
                 <van-tab v-for="item in conTab">
                     <template #title>
                         <h3>{{ item.title }}</h3>

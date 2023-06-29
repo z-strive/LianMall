@@ -1,10 +1,9 @@
 <template>
-  <!-- <div class="box"></div> -->
   <van-tabbar route v-model="active">
     <van-tabbar-item v-for=" ( item,index) in tabbarList" :to="item.to" :key="item.id">
       <span>{{ item.name }}</span>
-      <template #icon >
-        <img :src="active === index ? item.active : item.inactive" />
+      <template #icon="props" >
+        <img :src="props.active ? item.active : item.inactive" />
       </template>
     </van-tabbar-item>
   </van-tabbar>
@@ -13,6 +12,7 @@
 </template>
 
 <script setup>
+import {RouterView} from 'vue-router'
 import { ref } from 'vue'
 const active = ref(0);
 const tabbarList = ref([
@@ -35,14 +35,14 @@ const tabbarList = ref([
     name:'购物车',
     active:'/src/images/tabbar/cart_active.png',
     inactive:'/src/images/tabbar/cart.png',
-    to:'cart',
+    to:'/Cart',
   },
   {
     id:3,
     name:'我的',
     active:'/src/images/tabbar/mine_active.png',
     inactive:'/src/images/tabbar/mine.png',
-    to:'mine'
+    to:'/mine'
   }
 ])
 </script>
