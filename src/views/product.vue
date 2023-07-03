@@ -36,6 +36,10 @@
                             <p>选择颜色;尺码</p>
                         </div>
                     </div>
+                    <div class="bottom">
+                        <span class="car">加入购物车</span>
+                        <span class="buy">立即购买</span>
+                    </div>
                 </div>
             </van-action-sheet>
         </div>
@@ -44,12 +48,12 @@
             <span class="buy">立即购买</span>
         </div>
         <div class="shop">
-            <div class="shopLeft">
+            <div class="shopLeft" @click="jumpShop">
                 <img src="../images/product/store-header.png" alt="">
                 <span>店铺名称</span>
             </div>
-            <div class="shopRight">
-                <van-icon name="comment-circle" color="orange"/>
+            <div class="shopRight" @click="jumpShop">
+                <van-icon name="comment-circle" color="orange" />
                 <span>进店逛逛</span>
             </div>
         </div>
@@ -58,33 +62,36 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useRoute,useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 let route = useRoute()
 let router = useRouter()
 let flag = ref(true)
 let data = ref(route.query)
 let show = ref(false)
-function jumpShop(){
-    router.push({path:'/shop'})
+function jumpShop() {
+    router.push({ path: '/shop' })
 }
 </script>
 
 <style scoped lang="less">
-.shop{
+.shop {
     display: flex;
     justify-content: space-around;
-    font-size:16px;
+    font-size: 16px;
     margin-top: 20px;
     align-items: center;
-    div{
+
+    div {
         display: flex;
         justify-content: center;
         align-items: center;
-        span{
+
+        span {
             margin-left: 10px;
         }
     }
 }
+
 .item {
     display: flex;
 
