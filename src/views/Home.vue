@@ -8,10 +8,13 @@
                     </van-swipe-item>
                 </van-swipe>
             </div>
-            <div class="search">
-                <van-search placeholder="请输入搜索关键词" input-align="center" />
-                <van-icon name="service-o" class="icon" color="#fff" />
-            </div>
+            <router-link to="search">
+                <div class="search">
+                    <van-search placeholder="请输入搜索关键词" input-align="center" />
+                    <van-icon name="service-o" class="icon" color="#fff" />
+                </div>
+            </router-link>
+
         </div>
         <div class="scrollBanner">
             <van-swipe :loop="false" :width="260" :show-indicators="false">
@@ -102,7 +105,7 @@
                         <p>{{ item.name }}</p>
                     </template>
                     <div class="tab-con">
-                        <div v-for="item in item.list">
+                        <div v-for="item in item.list" @click="jumpProduct(item)">
                             <img :src="item.img" alt="">
                             <p class="title">{{ item.title }}</p>
                             <div class="price">
@@ -113,16 +116,19 @@
                     </div>
                 </van-tab>
             </van-tabs>
-
         </div>
+       
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { getHomeData } from '../api/index'
+import { useRouter } from 'vue-router';
+let router = useRouter()
 let swiperData = ref([])
 let scrollBanner = ref([])
+const active = ref(0);
 let navList = ref([
     {
         id: 0,
@@ -205,20 +211,10 @@ getHomeData().then(res => {
         conTab.value = res.tabList
     }
     console.log(res)
-});
-getHomeData()
-const active = ref(0);
-// axios.get('/sugrec?prod=pc&wd=b').then(res => {console.log(res)}).catch(
-//     err => {
-//         console.log(err)
-//         showDialog({
-//             message: '生命远不止连轴转和忙到极限，人类的体验远比这辽阔、丰富得多。',
-//             theme: 'round-button',
-//         })
-//     }
-// )
-// axios.get('/sugrec?').then(res=>console.log(res))
-
+})
+function jumpProduct(item){
+    router.push({path:'/product',query:item})
+}
 </script>
 
 <style scoped lang="less">
@@ -497,7 +493,8 @@ h4 {
     display: flex;
     font-size: 12px;
     justify-content: space-around;
-    margin:10px 0 ;
+    margin: 10px 0;
+
     span {
         width: 50px;
         height: 20px;
@@ -506,7 +503,8 @@ h4 {
         line-height: 20px;
         text-align: center;
     }
-    p{
+
+    p {
         width: 20px;
         height: 20px;
         border-radius: 10px;
@@ -515,4 +513,5 @@ h4 {
         line-height: 20px;
     }
 }
+
 </style>

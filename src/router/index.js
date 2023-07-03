@@ -4,22 +4,47 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/Home',
+      path: '/',
       name: 'Home',
-      component: () => import('../views/Home.vue')
+      component: () => import('../views/Home.vue'),
+      meta:{
+        showTab:true
+      }
     },
     {
-      path: '/mine',
-      name: 'mine',
-      component: () => import('../views/mine.vue')
+      path: '/Mine',
+      name: 'Mine',
+      component: () => import('../views/Mine.vue'),
+      meta:{
+        showTab:true
+      }
     },{
-      path: '/type',
-      name: 'type',
-      component: () => import('../views/type.vue')
+      path: '/Type',
+      name: 'Type',
+      component: () => import('../views/Type.vue'),
+      meta:{
+        showTab:true
+      }
     },{
       path: '/Cart',
       name: 'Cart',
-      component: () => import('../views/Cart.vue')
+      component: () => import('../views/Cart.vue'),
+      meta:{
+        showTab:true
+      }
+    },{
+      path: '/search',
+      name: 'search',
+      component: () => import('../views/search.vue')
+    }
+    ,{
+      path: '/remder',
+      name: 'remder',
+      component: () => import('../views/remder.vue')
+    },{
+      path: '/product',
+      name: 'product',
+      component: () => import('../views/product.vue')
     }
   ]
 })
