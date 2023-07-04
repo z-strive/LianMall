@@ -1,5 +1,5 @@
 <template>
-    <div class="go" @click="() => this.$router.go(-1)"> > </div>
+    <goBack></goBack>
     <div class="banner">
         <van-swipe :autoplay="3000" lazy-render>
             <van-swipe-item v-for="image in 5" :key="image">
@@ -37,14 +37,14 @@
                         </div>
                     </div>
                     <div class="bottom">
-                        <span class="car">加入购物车</span>
+                        <span class="car" @click="addCar(data)">加入购物车</span>
                         <span class="buy">立即购买</span>
                     </div>
                 </div>
             </van-action-sheet>
         </div>
         <div class="bottom">
-            <span class="car">加入购物车</span>
+            <span class="car" @click="addCar(data)">加入购物车</span>
             <span class="buy">立即购买</span>
         </div>
         <div class="shop">
@@ -63,6 +63,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router';
+import { showSuccessToast, showFailToast } from 'vant';
+import goBack from '../components/goBack.vue';
 let route = useRoute()
 let router = useRouter()
 let flag = ref(true)
@@ -71,6 +73,15 @@ let show = ref(false)
 function jumpShop() {
     router.push({ path: '/shop' })
 }
+let shopArr = JSON.parse(localStorage.getItem('shopArr')) ? JSON.parse(localStorage.getItem('shopArr')):[]
+function addCar(item){
+    shopArr.unshift(item)
+    console.log(shopArr)
+    localStorage.setItem('shopArr',JSON.stringify(shopArr))
+    showSuccessToast({message:'添加成功',forbidClick: true});
+    show.value = false
+}
+
 </script>
 
 <style scoped lang="less">
@@ -103,20 +114,6 @@ function jumpShop() {
 
 .content {
     padding: 16px 16px 160px;
-}
-
-.go {
-    width: 30px;
-    height: 30px;
-    border: 1px solid greenyellow;
-    color: greenyellow;
-    line-height: 30px;
-    text-align: center;
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    border-radius: 50%;
-    z-index: 500;
 }
 
 .banner {

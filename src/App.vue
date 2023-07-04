@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const active = ref(0);
+import {ref} from 'vue'
+let active = ref(0)
 </script>
 
 <style scoped lang="less"></style>

@@ -3,7 +3,7 @@
         <div class="header">
             <div class="banner">
                 <van-swipe :autoplay="3000" lazy-render>
-                    <van-swipe-item v-for="item in swiperData" :key="item.categoryId">
+                    <van-swipe-item v-for="item in swiperData" :key="item.categoryId" @click="jumpProduct(item)">
                         <img :src="item.imgUrl" />
                     </van-swipe-item>
                 </van-swipe>
@@ -23,7 +23,7 @@
             </van-swipe>
         </div>
         <div class="nav">
-            <nav v-for="item in navList" :key="item.id" class="nav-item">
+            <nav v-for="item in navList" :key="item.id" class="nav-item" @click="jumpSearch">
                 <img :src="'/src/images/home/' + item.img" alt="">
                 <span> {{ item.name }} </span>
             </nav>
@@ -110,19 +110,18 @@
                             <p class="title">{{ item.title }}</p>
                             <div class="price">
                                 <span>{{ item.forceValue }}倍算</span>
-                                <p>+</p>
+                                <p @click.stop="addCar(item)">+</p>
                             </div>
                         </div>
                     </div>
                 </van-tab>
             </van-tabs>
         </div>
-       
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,provide } from 'vue';
 import { getHomeData } from '../api/index'
 import { useRouter } from 'vue-router';
 let router = useRouter()
@@ -210,10 +209,20 @@ getHomeData().then(res => {
         scrollBanner.value = res.banners2
         conTab.value = res.tabList
     }
+    
     console.log(res)
 })
 function jumpProduct(item){
     router.push({path:'/product',query:item})
+}
+function jumpSearch(){
+    router.push({path:'/search'})
+}
+let shopArr = JSON.parse(localStorage.getItem('shopArr')) ? JSON.parse(localStorage.getItem('shopArr')):[]
+function addCar(item){
+    shopArr.unshift(item)
+    console.log(shopArr)
+    localStorage.setItem('shopArr',JSON.stringify(shopArr))
 }
 </script>
 

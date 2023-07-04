@@ -34,6 +34,7 @@ getCategoryData().then(res => {
     navList.value = navList.value.filter(i => {
         return i.text = i.name
     })
+    console.log(navList.value)
 }
 )
 function remderHandler(){

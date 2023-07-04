@@ -4,7 +4,7 @@ import { showDialog } from 'vant';
 const instance = axios.create({
     // baseURL: import.meta.env === 'production'?'http://seec4.com':'http://127.0.0.1:80',
     baseURL: 'https://lianmall.usemock.com',
-    timeout: 1000,//十秒 超时时间
+    timeout: 10000,//十秒 超时时间
     method:"POST"
     // headers: {'X-Custom-Header': 'foobar'} 
     
