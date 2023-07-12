@@ -1,6 +1,6 @@
 <template>
     <h3 class="title">商品分类</h3>
-    <van-tree-select v-model:main-active-index="activeIndex" height="150vw" :items="navList">
+    <van-tree-select v-model:main-active-index="activeIndex" height="90vh" :items="navList">
         <template #content>
             <div class="con">
                 <div class="conItem">

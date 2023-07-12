@@ -37,6 +37,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/sugrec':'http://www.baidu.com'
-    }
+    },
+    host:'0.0.0.0'
   }
 })
